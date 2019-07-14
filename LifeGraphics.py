@@ -3,6 +3,7 @@
 # Written by Koen den Hertog
 
 import pygame as pg
+from settings import *
 
 def loadscreen(): # Function that sets up the pygame display, and acts as an initial loading screen. Returns the display object
     
@@ -10,11 +11,38 @@ def loadscreen(): # Function that sets up the pygame display, and acts as an ini
     pg.init()
 
     # Set up display
-    scr = pg.display.set_mode((0, 0), pg.FULLSCREEN)
+    scr = pg.display.set_mode((xmax, ymax))
     pg.display.set_caption("Game of Life")
+
+    # Fill background
+    scr.fill(white) 
+
+    # Set font and loading screen text
+    title_font = pg.font.Font('freesansbold.ttf',115) # Set font
+    title = "Conway's Game of Life"
+
+    # Create the text surface and blit it to the display
+    textSurface = title_font.render(title, True, black)
+    textRect = textSurface.get_rect()
+    textRect.center = ((xmax/2),(ymax/2))
+    scr.blit(textSurface, textRect)
+
+    # Update the display
+    pg.display.update()
 
     # Returning display for further usage
     return scr
+
+def main_menu(scr): # Functions that creates the main menu. It contains two options: 'load random board', and 'quit'
+
+    # Fill background with white
+    scr.fill(white) 
+
+    # Create the load random board button
+    pg.draw.rect(scr, green, (100,450,100,50))
+
+    # Update the display
+    pg.display.update()
 
 def closescr(): # Function that determines if the game has to end, and ends the game. Returns the bolean 'escape', which allows the main program to quit
     

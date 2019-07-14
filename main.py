@@ -3,14 +3,14 @@
 # Written by Koen den Hertog
 
 from settings import *
-from LifeGraphics import loadscreen, show, closescr
+from LifeGraphics import loadscreen, main_menu, closescr
 
 def main():
     # Loading screen
     screen = loadscreen()
 
     # Main menu
-        # Add function for the main menu here
+    main_menu(screen)
 
     # Run the game of life, until the closescr functions returns that the program has to end
     escape = False

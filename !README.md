@@ -11,3 +11,10 @@ An implementation of Conway's Game of Life
     - Sum >4: death
 
 # Implementation in python
+
+
+# To-do
+- Fancify loading screen
+- Add options 'load board' and 'create new board' to main menu
+- Fancify main menu
+- Add option to resize the screen
