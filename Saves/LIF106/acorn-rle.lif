@@ -1,0 +1,12 @@
+#Life 1.06
+#  Acorn test your rle
+#  The most vigorously growing 7-cell
+#  "methuselah" pattern.
+# Simple acorn in RLE format
+1 0
+3 1
+0 2
+1 2
+4 2
+5 2
+6 2

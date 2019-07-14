@@ -1,0 +1,13 @@
+#Life 1.06
+# Self-commenting oscillator
+# Note that the term "flip-flop" is in use for different Life objects. In his Life Lexicon
+# Stephen Silver writes:
+# "flip-flop: Any p2 {oscillator}. However, the term is also used in two more specific
+# (and mutually incompatible) senses: (a) any p2 oscillator whose two phases are
+# mirror images of one another, and (b) any p2 oscillator in which all {rotor} cells die
+# from {underpopulation}. In the latter sense it contrasts with {on-off}. The term has
+# also been used even more specifically for the 12-cell flip-flop shown under
+# {phoenix}."
+# The pattern shown here is a flip-flop in the broad sense of the term, i.e. just a p2
+# oscillator.
+# Dieter Leithner, 1 May 1993
