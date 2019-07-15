@@ -1,6 +1,8 @@
 # Contains the old engine
 # OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD
 
+import numpy as np
+
 def engine(board):
     # Create new board for calculations
     nx = len(board[0,:])

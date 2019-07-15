@@ -3,21 +3,28 @@
 # Written by Koen den Hertog
 
 from settings import *
-from LifeGraphics import loadscreen, main_menu, closescr
+from LifeGraphics import loadscreen, main_menu
+from PygameUtil import quit_game
+from Board import Board
 
 def main():
     # Loading screen
     screen = loadscreen()
 
     # Main menu
-    main_menu(screen)
+    boardtype = main_menu(screen)
+    print(boardtype)
+
+    # Create/load board
+    board = Board(boardtype)
 
     # Run the game of life, until the closescr functions returns that the program has to end
     escape = False
     while not escape:
+        print(board)
         #show(screen,board)
         #board = engine(board)
-        escape = closescr()
+        quit_game()
 
 
 if __name__ == "__main__":

@@ -4,6 +4,7 @@
 
 import pygame as pg
 from settings import *
+from PygameUtil import quit_game, button, draw_text
 
 def loadscreen(): # Function that sets up the pygame display, and acts as an initial loading screen. Returns the display object
     
@@ -14,53 +15,53 @@ def loadscreen(): # Function that sets up the pygame display, and acts as an ini
     scr = pg.display.set_mode((xmax, ymax))
     pg.display.set_caption("Game of Life")
 
-    # Fill background
-    scr.fill(white) 
+    # Loop for the loading screen
+    loading = True
+    while loading:
 
-    # Set font and loading screen text
-    title_font = pg.font.Font('freesansbold.ttf',115) # Set font
-    title = "Conway's Game of Life"
+        # Determine if we have to quit the game
+        quit_game()
 
-    # Create the text surface and blit it to the display
-    textSurface = title_font.render(title, True, black)
-    textRect = textSurface.get_rect()
-    textRect.center = ((xmax/2),(ymax/2))
-    scr.blit(textSurface, textRect)
+        # Fill background
+        scr.fill(white) 
 
-    # Update the display
-    pg.display.update()
+        # Draw text
+        draw_text(scr, "Conway's Game of Life", xmax/2, ymax/2, main_font, 72, black)
+
+        # Update the display
+        pg.display.update()
+
+        # Set loading to false (since there is nothing to load)
+        loading = False
 
     # Returning display for further usage
     return scr
 
 def main_menu(scr): # Functions that creates the main menu. It contains two options: 'load random board', and 'quit'
 
-    # Fill background with white
-    scr.fill(white) 
+    # Main_menu loop
+    in_menu = True
+    while in_menu:
+        
+        # Determine if the game has to be quit
+        quit_game()
 
-    # Create the load random board button
-    pg.draw.rect(scr, green, (100,450,100,50))
+        # Fill background with white
+        scr.fill(white) 
 
-    # Update the display
-    pg.display.update()
+        # Draw text
+        draw_text(scr, "Conway's Game of Life", xmax/2, ymax/2, main_font, 72, black)
 
-def closescr(): # Function that determines if the game has to end, and ends the game. Returns the bolean 'escape', which allows the main program to quit
-    
-    # Determine if the escape key is pressed. 'keys[pg.K_ESCAPE]' equals true if that is the case
-    keys = pg.key.get_pressed()
-    escape = keys[pg.K_ESCAPE]
+        # Create the random button
+        board = button(scr, "Random", 200, 450, 120, 50, green, bright_green, "random")
 
-    # Determine if a quit event has taken place within pygame
-    pg.event.pump() # pump the event queue
-    for event in pg.event.get():
-        if event.type==pg.QUIT:
-            escape = True   # Set escape to true if a quit event has taken place
+        # Create the quit button
+        button(scr, "Quit", xmax-200-120, 450, 120, 50, red, bright_red, pg.quit, quit)
 
-    # If escape is true, so either the escape key is pressed, or a quit event has taken place, quit pygame
-    if escape:
-        pg.quit()
+        # Update the display
+        pg.display.update()
 
-    return escape
+    return board
 
 def show(scr,board): #OLD OLD OLD OLD OLD
     nx = len(board[0,:])

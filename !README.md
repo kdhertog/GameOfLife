@@ -17,4 +17,5 @@ An implementation of Conway's Game of Life
 - Fancify loading screen
 - Add options 'load board' and 'create new board' to main menu
 - Fancify main menu
-- Add option to resize the screen
+- Add option to resize the screen (even fullscreen)
+- Create proper quit function, and implement it
