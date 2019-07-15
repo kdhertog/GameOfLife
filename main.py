@@ -18,7 +18,7 @@ def main():
     # Create/load board
     board = Board(boardtype)
 
-    # Run the game of life, until the closescr functions returns that the program has to end # noqa
+    # Run the game of life, until the closescr functions returns that the program has to end
     escape = False
     while not escape:
         print(board)

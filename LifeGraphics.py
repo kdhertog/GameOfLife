@@ -8,7 +8,7 @@ from settings import colors, fonts, dim
 from PygameUtil import quit_game, button, draw_text
 
 
-def loadscreen():  # Function that sets up the pygame display, and acts as an initial loading screen. Returns the display object # noqa
+def loadscreen():  # Function that sets up the pygame display, and acts as an initial loading screen. Returns the display object 
 
     # Initialize pygame
     pg.init()
@@ -28,15 +28,7 @@ def loadscreen():  # Function that sets up the pygame display, and acts as an in
         scr.fill(colors["white"])
 
         # Draw text
-        draw_text(
-            scr,
-            "Conway's Game of Life",
-            dim[0] / 2,
-            dim[1] / 2,
-            fonts["main_font"],
-            72,
-            colors["black"],
-        )
+        draw_text(scr,"Conway's Game of Life",dim[0] / 2,dim[1] / 2, fonts["main_font"],72,colors["black"])
 
         # Update the display
         pg.display.update()
@@ -48,9 +40,7 @@ def loadscreen():  # Function that sets up the pygame display, and acts as an in
     return scr
 
 
-def main_menu(
-    scr
-):  # Functions that creates the main menu. It contains two options: 'load random board', and 'quit' # noqa
+def main_menu(scr):  # Functions that creates the main menu. It contains two options: 'load random board', and 'quit'
 
     # Main_menu loop
     in_menu = True
@@ -63,42 +53,13 @@ def main_menu(
         scr.fill(colors["white"])
 
         # Draw text
-        draw_text(
-            scr,
-            "Conway's Game of Life",
-            dim[0] / 2,
-            dim[1] / 2,
-            fonts["main_font"],
-            72,
-            colors["black"],
-        )
+        draw_text(scr, "Conway's Game of Life", dim[0]/2, dim[1]/2, fonts["main_font"], 72, colors["black"]) 
 
         # Create the random button
-        board = button(
-            scr,
-            "Random",
-            200,
-            450,
-            120,
-            50,
-            colors["green"],
-            colors["bright_green"],
-            "random",
-        )
+        board = button(scr,"Random", 200,450,120,50,colors["green"],colors["bright_green"],"random")
 
         # Create the quit button
-        button(
-            scr,
-            "Quit",
-            dim[0] - 200 - 120,
-            450,
-            120,
-            50,
-            colors["red"],
-            colors["bright_red"],
-            pg.quit,
-            quit,
-        )
+        button(scr, "Quit",dim[0] - 200 - 120,450,120,50,colors["red"], colors["bright_red"],pg.quit,quit)
 
         # Update the display
         pg.display.update()
@@ -115,9 +76,7 @@ def show(scr, board):  # OLD OLD OLD OLD OLD
     for i in range(len(board[:, 0])):
         for j in range(len(board[0, :])):
             if board[i, j] == 1:
-                square_rect = pg.Rect(
-                    (i * (xmax / nx), j * (dim[1] / ny)), square_size
-                )  # noqa
+                square_rect = pg.Rect((i * (xmax / nx), j * (dim[1] / ny)), square_size)  
                 pg.draw.rect(scr, (255, 255, 255), square_rect)
     pg.display.flip()
 
@@ -160,7 +119,7 @@ def show(scr,board):
     for i in range(len(board[:,0])):
         for j in range(len(board[0,:])):
             if board[i,j] == 1:
-                square_rect = pg.Rect((i*(dim[0]/nx),j*(dim[1]/ny)),square_size) # noqa
+                square_rect = pg.Rect((i*(dim[0]/nx),j*(dim[1]/ny)),square_size) 
                 pg.draw.rect(scr,(255,255,255),square_rect)
     pg.display.flip()
 
