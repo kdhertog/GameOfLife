@@ -7,6 +7,7 @@ from LifeGraphics import loadscreen, main_menu
 from PygameUtil import quit_game
 from Board import Board
 
+
 def main():
     # Loading screen
     screen = loadscreen()
@@ -22,8 +23,8 @@ def main():
     escape = False
     while not escape:
         print(board)
-        #show(screen,board)
-        #board = engine(board)
+        # show(screen,board)
+        # board = engine(board)
         quit_game()
 
 
@@ -31,8 +32,7 @@ if __name__ == "__main__":
     main()
 
 
-
-'''
+"""
 OLD OLD OLD OLD OLD OLD OLD 
 
 ##########################
@@ -65,4 +65,5 @@ while not escape:
     show(screen,board)
     board = engine(board)
     escape = closescr()
-''' 
+"""
+
