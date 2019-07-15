@@ -2,7 +2,6 @@
 # This is the main file for the Conway's Game of Life implementation
 # Written by Koen den Hertog
 
-from settings import *
 from LifeGraphics import loadscreen, main_menu
 from PygameUtil import quit_game
 from Board import Board
@@ -19,7 +18,7 @@ def main():
     # Create/load board
     board = Board(boardtype)
 
-    # Run the game of life, until the closescr functions returns that the program has to end
+    # Run the game of life, until the closescr functions returns that the program has to end # noqa
     escape = False
     while not escape:
         print(board)
@@ -33,7 +32,7 @@ if __name__ == "__main__":
 
 
 """
-OLD OLD OLD OLD OLD OLD OLD 
+OLD OLD OLD OLD OLD OLD OLD
 
 ##########################
 # Game of Life
@@ -66,4 +65,3 @@ while not escape:
     board = engine(board)
     escape = closescr()
 """
-
