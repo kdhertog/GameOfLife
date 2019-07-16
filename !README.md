@@ -14,6 +14,9 @@ An implementation of Conway's Game of Life
 
 
 # To-do
+
+FIRST TO DO: Complete Main menu, let buttons work
+
 - Fancify loading screen
 - Add options 'load board' and 'create new board' to main menu
 - Fancify main menu

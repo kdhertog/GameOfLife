@@ -8,12 +8,12 @@ from Board import Board
 
 
 def main():
+
     # Loading screen
     screen = loadscreen()
 
     # Main menu
     boardtype = main_menu(screen)
-    print(boardtype)
 
     # Create/load board
     board = Board(boardtype)

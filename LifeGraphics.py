@@ -56,15 +56,21 @@ def main_menu(scr):  # Functions that creates the main menu. It contains two opt
         draw_text(scr, "Conway's Game of Life", dim[0]/2, dim[1]/2, fonts["main_font"], 72, colors["black"]) 
 
         # Create the random button
-        board = button(scr,"Random", 200,450,120,50,colors["green"],colors["bright_green"],"random")
+        button(scr,"Random", 200,450,120,50,colors["green"],colors["bright_green"], random_button)
 
+        # Create the load button
+        button(scr,"Load", 350,450,120,50,colors["green"],colors["bright_green"], load_button)
+
+        # Create the create button
+        button(scr, "Create",dim[0] - 350 - 120,450,120,50,colors["green"], colors["bright_green"], create_button)
+        
         # Create the quit button
-        button(scr, "Quit",dim[0] - 200 - 120,450,120,50,colors["red"], colors["bright_red"],pg.quit,quit)
+        button(scr, "Quit",dim[0] - 200 - 120,450,120,50,colors["red"], colors["bright_red"],pg.quit, quit)
 
         # Update the display
         pg.display.update()
 
-    return board
+    return
 
 
 def show(scr, board):  # OLD OLD OLD OLD OLD
@@ -79,6 +85,19 @@ def show(scr, board):  # OLD OLD OLD OLD OLD
                 square_rect = pg.Rect((i * (xmax / nx), j * (dim[1] / ny)), square_size)  
                 pg.draw.rect(scr, (255, 255, 255), square_rect)
     pg.display.flip()
+
+def random_button():
+    global boardtype 
+    boardtype = "random"
+    return "test"
+
+def load_button():
+    global boardtype 
+    boardtype = "load"
+
+def create_button():
+    global boardtype 
+    boardtype = "create"
 
 
 """

@@ -13,6 +13,5 @@ colors = {
 # Fonts
 fonts = {"main_font": "freesansbold.ttf", "button_font": "freesansbold.ttf"}
 
-
 # Screen dimensions
 dim = (1024, 560)

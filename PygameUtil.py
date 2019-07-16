@@ -3,7 +3,7 @@
 # Written by Koen den Hertog
 
 import pygame as pg
-from settings import *
+from settings import fonts, colors
 
 def button(scr, message, xpos, ypos, width, height, color, act_color, *actionargs):
     # Function that creates a button
@@ -21,20 +21,16 @@ def button(scr, message, xpos, ypos, width, height, color, act_color, *actionarg
         pg.draw.rect(scr, act_color, (xpos, ypos, width, height))
 
         # Detect if the button is clicked and an action has to be performed
-        if click[0] == 1 and actionargs:
-            
-            # Loop over all actions
+        if click[0] == 1:
+
+            # Run actions    
             for action in actionargs:
-                
-                if callable(action):
-                    action()
-                elif type(action) is str:
-                    return action
+                action()
 
     else:
         pg.draw.rect(scr, color, (xpos, ypos, width, height))
 
-    draw_text(scr, message, xpos+(width/2), ypos+(height/2), button_font, 20, black)
+    draw_text(scr, message, xpos+(width/2), ypos+(height/2), fonts["button_font"], 20, colors["black"])
 
     return
 
@@ -65,7 +61,7 @@ def quit_game(): # Function that determines if the game has to end, and ends the
 
     # If escape is true, so either the escape key is pressed, or a quit event has taken place, quit pygame
     if escape:
-        quit_game()
+        pg.quit()
         quit()
 
     return
