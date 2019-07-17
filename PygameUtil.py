@@ -2,66 +2,53 @@
 # File with help functions for pygame
 # Written by Koen den Hertog
 
-import pygame as pg
-from settings import fonts, colors
+import pygame
 
-def button(scr, message, xpos, ypos, width, height, color, act_color, *actionargs):
-    # Function that creates a button
-    # Inputs: text on the button, xpos of the left top corner, ypos of the left top corner
-    #          button width, button height, color when inactive, color when active (hovering)
-    #          action when the button is pressed
-    # Outputs: none
+class Button():
+    # Class for creating buttons
+    # Atributes: text on the button, x-coordinate of the left side of the button, y coordinate of the top of the button,
+    #             width, height, color when inactive, color when active (hovering over it)
+    # Functions: is_over (returns true if the mouse is hovering over the button), draw (draws the button in the correct color)
 
-    # Get the current mouse position
-    mouse = pg.mouse.get_pos()
-    click = pg.mouse.get_pressed()
 
-    # Determine if hovering over the button
-    if xpos + width > mouse[0] > xpos and ypos+height > mouse[1] > ypos:
-        pg.draw.rect(scr, act_color, (xpos, ypos, width, height))
+    def __init__(self, text, left, top, width, height, color, act_color):
+        self.text = text
+        self.left = left
+        self.top = top
+        self.width = width
+        self.height = height
+        self.color = color
+        self.act_color = act_color
 
-        # Detect if the button is clicked and an action has to be performed
-        if click[0] == 1:
+    def is_over(self):
+        mouse = pygame.mouse.get_pos()
 
-            # Run actions    
-            for action in actionargs:
-                action()
+        if self.left + self.width > mouse[0] > self.left and self.top + self.height > mouse[1] > self.top:
+            return True
+        else:
+            return False 
+    
+    def draw(self, screen):
+        
+        # Determine if hovering over the button, if so draw in the active color, else in the inactive color
+        if self.is_over():
+            pygame.draw.rect(screen, self.act_color, (self.left, self.top, self.width, self.height))
+        else:
+            pygame.draw.rect(screen, self.color, (self.left, self.top, self.width, self.height))
 
-    else:
-        pg.draw.rect(scr, color, (xpos, ypos, width, height))
-
-    draw_text(scr, message, xpos+(width/2), ypos+(height/2), fonts["button_font"], 20, colors["black"])
-
-    return
+        draw_text(screen, self.text, self.left+(self.width/2), self.top+(self.height/2), "freesansbold.ttf", 20, (0, 0, 0))
 
 def draw_text(scr, message, xpos, ypos, fonttype, size, color):
-    
+    # Function for drawing text. Requires a python display object, a text (str), 
+    # the x and y position of the text, a fonttype (str), a textsize (int)m, and a text color
+
     # Set font
-    textfont = pg.font.Font(fonttype, size)
+    textfont = pygame.font.Font(fonttype, size)
 
     # Create the text surface and blit it to the display
     textSurface = textfont.render(message, True, color)
     textRect = textSurface.get_rect()
     textRect.center = (xpos,ypos)
     scr.blit(textSurface, textRect)
-
-    return
-
-def quit_game(): # Function that determines if the game has to end, and ends the game.
-    
-    # Determine if the escape key is pressed. 'keys[pg.K_ESCAPE]' equals true if that is the case
-    keys = pg.key.get_pressed()
-    escape = keys[pg.K_ESCAPE]
-
-    # Determine if a quit event has taken place within pygame
-    pg.event.pump() # pump the event queue
-    for event in pg.event.get():
-        if event.type==pg.QUIT:
-            escape = True   # Set escape to true if a quit event has taken place
-
-    # If escape is true, so either the escape key is pressed, or a quit event has taken place, quit pygame
-    if escape:
-        pg.quit()
-        quit()
 
     return
