@@ -39,6 +39,7 @@ class BoardClass:
 
         # Strip board of zero columns and rows on all sides
         
+        # ADD ADD ADD ADD ADD ADD ADD
     
         print(self.board)
 
