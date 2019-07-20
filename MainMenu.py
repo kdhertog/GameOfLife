@@ -18,7 +18,8 @@ class MainMenu:
         self.screen = screen 
 
         # Create buttons: dictionary of button objects (from PygameUtils)
-        self.buttons = {"Random": Button("Random", 200, 450, 120, 50, (0, 200, 0), (0, 255, 0)),
+        self.buttons = {"Example": Button("Example", screenwidth/2-150/2, 450, 150, 50, (0, 200, 0), (0, 255, 0)),
+                        "Random": Button("Random", 200, 450, 120, 50, (0, 200, 0), (0, 255, 0)),
                         "Load": Button("Load", 350, 450, 120, 50, (0, 200, 0), (0, 255, 0)),
                         "Create": Button("Create", screenwidth-350-120, 450, 120, 50, (0, 200, 0), (0, 255, 0)),
                         "Quit": Button("Quit", screenwidth-200-120, 450, 120, 50, (200, 0, 0,), (255, 0, 0,))}
@@ -45,21 +46,26 @@ class MainMenu:
                     
                     # Which button has been clicked?
                     if self.buttons["Random"].is_over(): 
-                        game = Game("Standard")
+                        print("Random")
+                
+                    elif self.buttons["Load"].is_over(): 
+                        game = Game("Load","lwssgun")
                         game.run()
                         del game
                         run = False
-
-                    elif self.buttons["Load"].is_over(): 
-                        print("Load")
 
                     elif self.buttons["Create"].is_over(): 
                         print("Create")
 
                     elif self.buttons["Quit"].is_over(): 
-                        
                         # Set run to false in order to quit the main menu, and thus the game
                         run = False 
+
+                    elif self.buttons["Example"].is_over(): 
+                        game = Game("Standard")
+                        game.run()
+                        del game
+                        run = False
         
         # After the main menu we want to quit the game
         pygame.quit()
