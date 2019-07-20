@@ -3,11 +3,11 @@
 
 import pygame
 from MainMenu import MainMenu
-from settings import screenwidth, screenheight
+from settings import screenwidth, screenheight, fullscreen
+from PygameUtil import create_window
 
 if __name__ == "__main__":
     pygame.init()
-    screen = pygame.display.set_mode((screenwidth, screenheight))
-    pygame.display.set_caption("The Game of Life")
+    screen = create_window(screenwidth,screenheight,fullscreen)
     mainMenu = MainMenu(screen)
     mainMenu.run()

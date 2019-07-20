@@ -17,12 +17,15 @@ class MainMenu:
 
         self.screen = screen 
 
+        # Determine the size of the window for further usage
+        self.width, self.height = pygame.display.get_surface().get_size()
+
         # Create buttons: dictionary of button objects (from PygameUtils)
-        self.buttons = {"Example": Button("Example", screenwidth/2-150/2, 450, 150, 50, (0, 200, 0), (0, 255, 0)),
-                        "Random": Button("Random", 200, 450, 120, 50, (0, 200, 0), (0, 255, 0)),
-                        "Load": Button("Load", 350, 450, 120, 50, (0, 200, 0), (0, 255, 0)),
-                        "Create": Button("Create", screenwidth-350-120, 450, 120, 50, (0, 200, 0), (0, 255, 0)),
-                        "Quit": Button("Quit", screenwidth-200-120, 450, 120, 50, (200, 0, 0,), (255, 0, 0,))}
+        self.buttons = {"Example": Button("Example", self.width/2-150/2, self.height-200, 150, 50, (0, 200, 0), (0, 255, 0)),
+                        "Random": Button("Random", 200, self.height-200, 120, 50, (0, 200, 0), (0, 255, 0)),
+                        "Load": Button("Load", 350, self.height-200, 120, 50, (0, 200, 0), (0, 255, 0)),
+                        "Create": Button("Create", self.width-350-120, self.height-200, 120, 50, (0, 200, 0), (0, 255, 0)),
+                        "Quit": Button("Quit", self.width-200-120, self.height-200, 120, 50, (200, 0, 0,), (255, 0, 0,))}
     
     
     def run(self):
@@ -49,7 +52,7 @@ class MainMenu:
                         print("Random")
                 
                     elif self.buttons["Load"].is_over(): 
-                        game = Game("Load","lwssgun")
+                        game = Game("Load","pinball")
                         game.run()
                         del game
                         run = False
@@ -74,12 +77,12 @@ class MainMenu:
     
     def draw(self):
         # Function to draw the elements found in the main menu ---  TO-DO: add the elements to the init function, instead of introducing them here
-        
+
         # Draw background
         self.screen.fill((255,255,255))
 
         # Draw text
-        draw_text(self.screen,"Conway's Game of Life", screenwidth/2, screenheight/2, "freesansbold.ttf",72,(0, 0, 0))
+        draw_text(self.screen,"Conway's Game of Life", self.width/2, self.height/2, "freesansbold.ttf",72,(0, 0, 0))
 
         # Draw buttons
         for _name, button in self.buttons.items():

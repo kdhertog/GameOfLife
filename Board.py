@@ -6,7 +6,7 @@ import numpy as np
 import pygame
 import os
 
-from settings import screenwidth, screenheight
+from settings import cell_size
 
 class BoardClass:
     # Board class
@@ -26,11 +26,21 @@ class BoardClass:
             self.board = self.create()
         elif self.boardtype == "Load":
             self.board = self.load(filename)
+        
+        # Determine the dimensions and center of the board
         self.nx = len(self.board[0,:])
         self.ny = len(self.board[:,0])
+        self.center_x = self.board[0,:]/2
+        self.center_y = self.board[:,0]/2
 
     def update(self):
         # Function that updates the board, based on the rules
+        
+
+        # Strip board of zero columns and rows on all sides
+        
+    
+        print(self.board)
 
         # Create new board for calculations
         calc_board = np.zeros((self.nx + 2, self.ny + 2))
@@ -47,34 +57,45 @@ class BoardClass:
             calc_board[2:self.nx+2, 1:self.ny+1] + 
             calc_board[2:self.nx+2, 2:self.ny+2]) 
 
+        # ADD THE FOLLOWING: THE FIRST/LAST 3 ROWS/COLUMNS NEEDS TO BE ZEROS, IF NOT ADD ONE
+        
+
         # Return the new board. If a cell has a value of 2 in the sum_board, it will stay the same as in the old board
         # Else, if the sum = 3, the cell will become alive, else it will die. 
         new_board = np.where(sum_board == 2, self.board, (np.where(sum_board == 3, 1, 0)))
         
+        # Determine new board dimensions
+        self.nx = len(new_board[0,:])
+        self.ny = len(new_board[:,0])
+        self.center_x = self.nx/2
+        self.center_y = self.ny/2
+
         self.board = new_board
 
     def draw(self, screen):
         # Function to draw the board to the screen
         # Attribute: a pygame display object
 
+        # Determine the size of the window
+        width, height = pygame.display.get_surface().get_size()
+
         # Fill the background with black
         screen.fill((0, 0, 0))
 
-        # Determine the size of the cells
-        cell_size = (screenwidth/self.nx*0.95, screenheight/self.ny*0.95)
+        
         
         # Draw every alive cell
         for i in range(self.nx):
             for j in range(self.ny):
                 if self.board[j,i] == 1:
-                    square_rect = pygame.Rect((i * (screenwidth / self.nx), j * (screenheight / self.ny)), cell_size)
+                    square_rect = pygame.Rect((i*cell_size, j*cell_size), (cell_size*0.95,cell_size*0.95))
                     pygame.draw.rect(screen, (255, 255, 255), square_rect)
                     
         pygame.display.update()
 
     def standard(self):
         # Function to create the standard board
-        board = np.zeros((100, 100))
+        board = np.zeros((10, 10))
         initial = np.array([[0, 1, 0], [0, 0, 1], [1, 1, 1]])
         xpos_initial = 1
         ypos_initial = 1

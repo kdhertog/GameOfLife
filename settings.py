@@ -9,5 +9,10 @@ green = (0, 200, 0)
 bright_green = (0, 255, 0)
 
 # Screen dimensions
-screenwidth = 1350
-screenheight = 700
+screenwidth = 1280
+screenheight = 720
+
+fullscreen = False
+
+# Cell size [pixels]
+cell_size = 5

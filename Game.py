@@ -4,14 +4,15 @@
 
 from Board import BoardClass
 import pygame
-from settings import screenwidth, screenheight
+import time
+from settings import screenwidth, screenheight, fullscreen
+from PygameUtil import create_window
 
 class Game:
 
     def __init__(self, boardtype, filename=None):          
         self.Board = BoardClass(boardtype, filename)
-        self.screen = pygame.display.set_mode((screenwidth, screenheight))
-        pygame.display.set_caption("The Game of Life")
+        self.screen = create_window(screenwidth, screenheight, fullscreen)
         self.Board.draw(self.screen)
 
     def run(self):
@@ -22,7 +23,14 @@ class Game:
             self.Board.update()
             self.Board.draw(self.screen)
             
-            # main event loop
+            # Main event loop
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
+            
+            # Determine if the escape key has been pressed for quitting the game
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_ESCAPE]:
+                run = False
+            
+            time.sleep(.5)

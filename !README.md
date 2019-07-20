@@ -15,10 +15,5 @@ An implementation of Conway's Game of Life
 
 # To-do
 
-FIRST TO DO: Complete Main menu, let buttons work
-
-- Fancify loading screen
-- Add options 'load board' and 'create new board' to main menu
-- Fancify main menu
+- Fancify main menu --> let button position and size scale with screen size
 - Add option to resize the screen (even fullscreen)
-- Create proper quit function, and implement it

@@ -3,6 +3,17 @@
 # Written by Koen den Hertog
 
 import pygame
+import numpy
+
+def create_window(w, h, fullscreen):
+    if fullscreen:
+        screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    else:
+        screen = pygame.display.set_mode((w, h))
+    
+    pygame.display.set_caption("The Game of Life")
+    
+    return screen
 
 class Button():
     # Class for creating buttons
@@ -52,3 +63,26 @@ def draw_text(scr, message, xpos, ypos, fonttype, size, color):
     scr.blit(textSurface, textRect)
 
     return
+
+def strip_array(arr): 
+    # Function that strips an array of all leading or trailing rows or columns
+    
+    # Leading rows
+    for i in range(int(len(arr[0,:]/2))+1):
+        if sum(arr[:,0]) == 0:
+            arr = arr[:,1:]
+        else:
+            break
+    
+    # Leading columns
+    for i in range(int(len(arr[:,0]/2))+1):
+        if sum(arr[0,:]) == 0:
+            arr = arr[1:,:]
+        else:
+            break
+
+    # Trailing columns
+    
+    # Trailing rows
+
+    return arr
