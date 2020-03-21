@@ -71,28 +71,28 @@ def strip_array(arr):
 
 
     # Leading columns
-    for i in range(int(xlen/2)+1):
+    for i in range(xlen):
         if sum(arr[:,0]) == 0:
             arr = arr[:,1:]
         else:
             break
     
     # Leading rows
-    for i in range(int(ylen/2)+1):
+    for i in range(ylen):
         if sum(arr[0,:]) == 0:
             arr = arr[1:,:]
         else:
             break
 
     # Trailing columns
-    for i in range(xlen-1, int(xlen/2), -1):
+    for i in range(xlen-1, 0, -1):
         if sum(arr[:,-1]) == 0:
             arr = arr[:,:-1]
         else:
             break
 
     # Trailing rows
-    for i in range(ylen-1, int(ylen/2), -1):
+    for i in range(ylen-1, 0, -1):
         if sum(arr[-1,:]) == 0:
             arr = arr[:-1,:]
         else:

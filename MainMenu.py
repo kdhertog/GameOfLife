@@ -2,6 +2,8 @@
 # Main menu of the Game of Life
 
 import pygame
+#import tkinker
+
 from PygameUtil import Button, draw_text
 from Game import Game
 from settings import screenwidth, screenheight
@@ -52,7 +54,8 @@ class MainMenu:
                         print("Random")
                 
                     elif self.buttons["Load"].is_over(): 
-                        game = Game("Load","pinball")
+                        loadfile, filetype = self.get_file()
+                        game = Game("Load",loadfile, filetype)
                         game.run()
                         del game
                         run = False
@@ -90,3 +93,15 @@ class MainMenu:
 
         # Update display
         pygame.display.update() 
+
+    def get_file(self):
+        master = tkinker.Tk()
+        e = tkinker.Entry(master)
+        e.pack()
+
+        e.focus_set()
+
+        b = tkinker.Button(master, text="OK", width=10, command=tkinker.callback)
+        b.pack()
+
+        return "adder"

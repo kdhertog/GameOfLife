@@ -15,9 +15,10 @@ class BoardClass:
     # Functions: update, standard (to load a standard board), random (to load a random board)
     #             load (to load a board from saves), create (to create a new board)
 
-    def __init__(self, boardtype, filename=None):
+    def __init__(self, boardtype, filename=None, filetype=None):
         self.boardtype = boardtype
         self.filename = filename
+        self.filetype = filetype
         if self.boardtype == "Standard":
             self.board = self.standard()
         elif self.boardtype == "Random":
@@ -35,36 +36,44 @@ class BoardClass:
 
     def update(self):
         # Function that updates the board, based on the rules
-        
-
-        # Strip board of zero columns and rows on all sides
-        
-        # ADD ADD ADD ADD ADD ADD ADD
-    
-        print(self.board)
-
+       
         # Create new board for calculations
-        calc_board = np.zeros((self.nx + 2, self.ny + 2))
-        calc_board[1:self.nx+1, 1:self.ny+1] = self.board
+        calc_board = np.zeros((self.ny + 2, self.nx + 2))
+        calc_board[1:-1, 1:-1] = self.board
 
         # Shift the board in each of the eight directions, and sum them
         sum_board = (
-            calc_board[0:self.nx+0, 0:self.ny+0] + 
-            calc_board[0:self.nx+0, 1:self.ny+1] + 
-            calc_board[0:self.nx+0, 2:self.ny+2] + 
-            calc_board[1:self.nx+1, 0:self.ny+0] + 
-            calc_board[1:self.nx+1, 2:self.ny+2] + 
-            calc_board[2:self.nx+2, 0:self.ny+0] + 
-            calc_board[2:self.nx+2, 1:self.ny+1] + 
-            calc_board[2:self.nx+2, 2:self.ny+2]) 
-
-        # ADD THE FOLLOWING: THE FIRST/LAST 3 ROWS/COLUMNS NEEDS TO BE ZEROS, IF NOT ADD ONE
-        
+            calc_board[0:self.board.shape[0]+0, 0:self.board.shape[1]+0] + 
+            calc_board[0:self.board.shape[0]+0, 1:self.board.shape[1]+1] + 
+            calc_board[0:self.board.shape[0]+0, 2:self.board.shape[1]+2] + 
+            calc_board[1:self.board.shape[0]+1, 0:self.board.shape[1]+0] + 
+            calc_board[1:self.board.shape[0]+1, 2:self.board.shape[1]+2] + 
+            calc_board[2:self.board.shape[0]+2, 0:self.board.shape[1]+0] + 
+            calc_board[2:self.board.shape[0]+2, 1:self.board.shape[1]+1] + 
+            calc_board[2:self.board.shape[0]+2, 2:self.board.shape[1]+2]) 
 
         # Return the new board. If a cell has a value of 2 in the sum_board, it will stay the same as in the old board
         # Else, if the sum = 3, the cell will become alive, else it will die. 
         new_board = np.where(sum_board == 2, self.board, (np.where(sum_board == 3, 1, 0)))
-        
+
+        # Add a zero column/row to every side where there isn't one
+        if sum(new_board[:,0]) != 0:
+            temp = np.zeros((new_board.shape[0],new_board.shape[1]+1))
+            temp[:,1:] = new_board
+            new_board = temp
+        if sum(new_board[:,-1]) != 0: 
+            temp = np.zeros((new_board.shape[0],new_board.shape[1]+1))
+            temp[:,:-1] = new_board
+            new_board = temp
+        if sum(new_board[0,:]) != 0:
+            temp = np.zeros((new_board.shape[0]+1,new_board.shape[1]))
+            temp[1:,:] = new_board
+            new_board = temp
+        if sum(new_board[-1,:]) != 0:    
+            temp = np.zeros((new_board.shape[0]+1,new_board.shape[1]))
+            temp[:-1,:] = new_board
+            new_board = temp
+
         # Determine new board dimensions
         self.nx = len(new_board[0,:])
         self.ny = len(new_board[:,0])
@@ -74,7 +83,7 @@ class BoardClass:
         self.board = new_board
 
     def draw(self, screen):
-        # Function to draw the board to the screen
+        # Function to draw the board to a surface, which can subsequently be blitted to the screen
         # Attribute: a pygame display object
 
         # Determine the size of the window
@@ -83,14 +92,21 @@ class BoardClass:
         # Fill the background with black
         screen.fill((0, 0, 0))
 
-        
-        
-        # Draw every alive cell
+        # Create surface object to store the board
+        self.board_surface = pygame.Surface((self.nx*cell_size, self.ny*cell_size))
+
+        # Draw every alive cell, starting from center
         for i in range(self.nx):
             for j in range(self.ny):
                 if self.board[j,i] == 1:
-                    square_rect = pygame.Rect((i*cell_size, j*cell_size), (cell_size*0.95,cell_size*0.95))
-                    pygame.draw.rect(screen, (255, 255, 255), square_rect)
+                    square_rect = pygame.Rect((i*cell_size, j*cell_size), (cell_size*0.95,cell_size*0.95)) # (left,top),(width, height)
+                    pygame.draw.rect(self.board_surface, (255, 255, 255), square_rect)
+
+        # CODE BELOW NEEDS TO BE MOVED AND EXPANDED UPON
+
+        # Draw board_surface onto the screen surface, centered: only the first 
+        center = (width/2 - self.board_surface.get_width()/2, height/2 - self.board_surface.get_height()/2)
+        screen.blit(self.board_surface, center)
                     
         pygame.display.update()
 
@@ -104,7 +120,6 @@ class BoardClass:
               ypos_initial:ypos_initial + len(initial[0, :]),] = initial  # Load initial into the board
 
         return board
-
 
     def load(self, filename):  # OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD
         # Loads an existing board from a .lif file. Only works for the 'Life 1.05' format

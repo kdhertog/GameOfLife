@@ -10,8 +10,8 @@ from PygameUtil import create_window
 
 class Game:
 
-    def __init__(self, boardtype, filename=None):          
-        self.Board = BoardClass(boardtype, filename)
+    def __init__(self, boardtype, filename=None, filetype=None):          
+        self.Board = BoardClass(boardtype, filename, filetype)
         self.screen = create_window(screenwidth, screenheight, fullscreen)
         self.Board.draw(self.screen)
 
@@ -33,4 +33,4 @@ class Game:
             if keys[pygame.K_ESCAPE]:
                 run = False
             
-            time.sleep(.5)
+            #time.sleep(.25)
